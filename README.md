@@ -1,13 +1,12 @@
-
 # Sakura Blog Scraper
 
-このスクリプトは、櫻坂46の公式ブログから指定されたメンバーの画像を収集するものです。以下の手順に従って環境をセットアップし、スクリプトを実行してください。
+このスクリプトは、櫻坂46の公式ブログから指定されたメンバーのブログ記事を収集し、感情分析を行うものです。以下の手順に従って環境をセットアップし、スクリプトを実行してください。
 
 ---
 
 ## 必要条件
 
-- Python 3.10.5
+- Python 3.12.7
 - `pyenv`（Python バージョン管理）
 - `poetry`（Python パッケージ管理ツール）
 - 仮想環境（venv）での実行
@@ -45,13 +44,13 @@ eval "$(pyenv init -)"
 source ~/.bashrc  # または source ~/.zshrc
 ```
 
-#### **Python 3.10.5 のインストール**
+#### **Python 3.12.7 のインストール**
 
 指定されたバージョンの Python をインストールして有効化します。
 
 ```bash
-pyenv install 3.10.5
-pyenv global 3.10.5
+pyenv install 3.12.7
+pyenv global 3.12.7
 ```
 
 インストールされた Python バージョンを確認します。
@@ -101,7 +100,7 @@ git clone <repository-url>
 cd <repository-directory>
 ```
 
-#### **依存関係のインストール**
+#### **依存関係のインストール (Poetry 使用)**
 
 `poetry` を使用して依存関係をインストールします。
 
@@ -115,13 +114,38 @@ poetry install
 poetry shell
 ```
 
-#### **Python とライブラリの確認**
+#### **依存関係のインストール (Poetry でインストールできないもの)**
 
-Python とライブラリが正しくインストールされていることを確認します。
+一部の依存関係は `poetry` ではうまくインストールできない場合があります。その場合は、`pip` を使って手動でインストールしてください。
 
 ```bash
-python --version
-poetry show
+pip install <パッケージ名>
+```
+
+特に以下のライブラリについては、`poetry` でインストールできない場合があるため、`pip` を使うことをお勧めします。
+
+- `fugashi`
+- `protobuf`
+
+```bash
+pip install fugashi protobuf
+```
+
+---
+
+### 4. 仮想環境の作成 (venv 使用の場合)
+
+`venv` を使用して仮想環境を作成し、有効化します。
+
+```bash
+python -m venv .venv
+source .venv/bin/activate  # Windows の場合は .venv\Scripts\activate
+```
+
+必要なライブラリをインストールします。
+
+```bash
+pip install -r requirements.txt
 ```
 
 ---
@@ -140,7 +164,7 @@ poetry show
 
 2. **出力**
 
-   画像は、`data/<メンバー名>` ディレクトリに保存されます。
+   解析結果は、`data/<メンバー名>` ディレクトリに保存されます。
 
 ---
 
@@ -167,6 +191,12 @@ poetry show
    poetry install
    ```
 
+3. 一部のライブラリは `pip` を使って手動でインストールしてください。
+
+   ```bash
+   pip install fugashi protobuf
+   ```
+
 ### エラーが発生した場合
 
 - `requests.exceptions.RequestException`: ウェブサイトに接続できない場合に発生します。インターネット接続と URL を確認してください。
@@ -181,3 +211,33 @@ poetry show
 - `pykakasi`: 漢字からローマ字への変換
 - `Pillow`: 画像操作
 - `argparse`: コマンドライン引数の処理
+- `transformers`: 感情分析
+- `dotenv`: 環境変数の管理
+- `matplotlib`: グラフの描画
+- `pandas`: データ解析
+
+---
+
+## 追加情報
+
+### 仮想環境の無効化
+
+仮想環境を無効化するには、以下のコマンドを使用します。
+
+```bash
+deactivate
+```
+
+### Poetry のアンインストール
+
+Poetry をアンインストールする場合は、以下のコマンドを実行します。
+
+```bash
+poetry self uninstall
+```
+
+---
+
+## 連絡先
+
+質問や問題がある場合は、リポジトリの Issue セクションを通じてお問い合わせください。
