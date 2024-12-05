@@ -6,7 +6,7 @@ authors = ["Naoya_Nakagawa_Sivax <n-nakagawa_d1@sivax.co.jp>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = ">=3.10, <4.0"
 requests = "^2.32.3"
 beautifulsoup4 = "^4.12.3"
 janome = "^0.5.0"
