@@ -67,6 +67,7 @@ def detect_and_crop_faces_mtcnn(input_dir, output_dir):
             except Exception as e:
                 print(f"画像の保存中にエラーが発生しました: {output_path}, エラー: {e}")
 
+
 if __name__ == "__main__":
     # 入力データのディレクトリ（単一のメンバーのフォルダ）
     input_directory = r"C:\Users\n-nakagawa_d1\Downloads\IdolMembers\井上 梨名"  # 例: /data/メンバー名
