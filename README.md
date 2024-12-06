@@ -1,6 +1,7 @@
+
 # Sakura Blog Scraper
 
-このスクリプトは、櫻坂46の公式ブログから指定されたメンバーのブログ記事を収集し、感情分析を行うものです。以下の手順に従って環境をセットアップし、スクリプトを実行してください。
+このスクリプトは、櫻坂46の公式ブログから指定されたメンバーのブログ記事を収集し、感情分析を行うものです。また、MTCNNを使用した顔検出と切り抜き処理にも対応しています。以下の手順に従って環境をセットアップし、スクリプトを実行してください。
 
 ---
 
@@ -10,6 +11,7 @@
 - `pyenv`（Python バージョン管理）
 - `poetry`（Python パッケージ管理ツール）
 - 仮想環境（venv）での実行
+- 必須ライブラリ: `tensorflow`, `mtcnn`, `Pillow`, `opencv-python`
 
 ---
 
@@ -126,9 +128,10 @@ pip install <パッケージ名>
 
 - `fugashi`
 - `protobuf`
+- `tensorflow`
 
 ```bash
-pip install fugashi protobuf
+pip install fugashi protobuf tensorflow
 ```
 
 ---
@@ -139,7 +142,7 @@ pip install fugashi protobuf
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate  # Windows の場合は .venv\Scripts\activate
+source .venv/bin/activate  # Windows の場合は .venv\Scripts ctivate
 ```
 
 必要なライブラリをインストールします。
@@ -157,14 +160,14 @@ pip install -r requirements.txt
    スクリプトを実行するには、次のようにメンバー名を指定してください。
 
    ```bash
-   python script.py --member "田村保乃"
+   python face_crop.py --member "井上 梨名"
    ```
 
    `--member` オプションには、指定するメンバーの名前（漢字）を入力してください。
 
 2. **出力**
 
-   解析結果は、`data/<メンバー名>` ディレクトリに保存されます。
+   解析結果は、`Facedata/<メンバー名>` ディレクトリに保存されます。
 
 ---
 
@@ -194,13 +197,14 @@ pip install -r requirements.txt
 3. 一部のライブラリは `pip` を使って手動でインストールしてください。
 
    ```bash
-   pip install fugashi protobuf
+   pip install fugashi protobuf tensorflow
    ```
 
 ### エラーが発生した場合
 
 - `requests.exceptions.RequestException`: ウェブサイトに接続できない場合に発生します。インターネット接続と URL を確認してください。
 - `PIL.UnidentifiedImageError`: 画像の保存中にエラーが発生した場合、画像 URL が正しいか確認してください。
+- `TypeError`（MTCNN関連）: `MTCNN.detect_faces()` にサポートされていない引数を渡した場合に発生します。不要な引数を削除してください。
 
 ---
 
@@ -215,6 +219,8 @@ pip install -r requirements.txt
 - `dotenv`: 環境変数の管理
 - `matplotlib`: グラフの描画
 - `pandas`: データ解析
+- `mtcnn`: 顔検出
+- `opencv-python`: 画像処理
 
 ---
 
@@ -241,3 +247,29 @@ poetry self uninstall
 ## 連絡先
 
 質問や問題がある場合は、リポジトリの Issue セクションを通じてお問い合わせください。
+
+---
+
+## 追加情報: MTCNNを使用する際の注意点
+
+### MTCNNのインストール
+
+MTCNNを使用するためには、以下のコマンドで`mtcnn`ライブラリをインストールしてください。
+
+```bash
+pip install mtcnn
+```
+
+### 画像の色保持について
+
+顔切り抜き後の画像が白黒になってしまう場合は、以下の点を確認してください：
+
+- 画像を保存する際にRGBからBGRに正しく変換しているか。
+
+修正版コードでは以下のように変換しています：
+
+```python
+cv2.imwrite(output_path, cv2.cvtColor(face_img, cv2.COLOR_RGB2BGR))
+```
+
+これにより、色が正しく保持されて保存されるはずです。
