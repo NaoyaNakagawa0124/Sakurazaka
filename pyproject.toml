@@ -21,7 +21,9 @@ unidic-lite = "^1.0.8"
 fugashi = "^1.4.0"
 protobuf = "^5.29.0"
 opencv-python = "^4.10.0.84"
-
+numpy = "^1.23"  # 追加
+mtcnn = "0.1.0"    # 明示的にバージョンを指定
+tensorflow = "2.18.0"  # 明示的にバージョンを指定
 
 [tool.poetry.group.dev.dependencies]
 ipykernel = "^6.29.5"
