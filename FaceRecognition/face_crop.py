@@ -70,7 +70,7 @@ def detect_and_crop_faces_mtcnn(input_dir, output_dir):
 
 if __name__ == "__main__":
     # 入力データのディレクトリ（単一のメンバーのフォルダ）
-    input_directory = r"C:\Users\n-nakagawa_d1\Downloads\IdolMembers\森田 ひかる"  # 例: /data/メンバー名
+    input_directory = r"C:\Users\n-nakagawa_d1\Downloads\IdolMembers\齋藤 冬優花"  # 例: /data/メンバー名
 
     # 出力データのディレクトリ
     output_directory = r"C:\Users\n-nakagawa_d1\Desktop\Python\Sakurazaka\FaceRecognition\data\FaceCropData"  # 切り抜いた顔画像を保存する場所
