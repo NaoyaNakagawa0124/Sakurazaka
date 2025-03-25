@@ -7,7 +7,7 @@
 
 ## 必要条件
 
-- Python 3.12.7
+- Python 3.11.9
 - `pyenv`（Python バージョン管理）
 - `poetry`（Python パッケージ管理ツール）
 - 仮想環境（venv）での実行
