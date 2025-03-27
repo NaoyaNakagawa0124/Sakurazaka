@@ -4,6 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["Naoya_Nakagawa <nakagawa.naoya.xr@gmail.com>"]
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.12"
@@ -23,20 +24,23 @@ protobuf = "^5.29.0"
 opencv-python = "^4.10.0.84"
 numpy = "^1.23"
 mtcnn = "0.1.0"
-tensorflow = "2.18.0"
 tensorflow-io-gcs-filesystem = "0.31.0"
 ipykernel = "^6.29.5"
 
-# ✅ CUDA 12.1 対応の torch/torchvision/torchaudio にだけ source を指定
+
+# ✅ CUDA 12.1 対応の torch/torchvision/torchaudio だけ source を指定
 torch = { version = "2.2.0+cu121", source = "pytorch-cu121" }
 torchvision = { version = "0.17.0+cu121", source = "pytorch-cu121" }
 torchaudio = { version = "2.2.0+cu121", source = "pytorch-cu121" }
+tensorflow = "2.18.0"
+ultralytics = "^8.3.97"
+yt-dlp = "^2025.3.26"
 
 [tool.poetry.group.dev.dependencies]
 ipykernel = "^6.29.5"
 
-# ✅ 追加：PyTorch公式リポジトリ
+# ✅ PyTorch 公式リポジトリ（CUDA 12.1）
 [[tool.poetry.source]]
 name = "pytorch-cu121"
 url = "https://download.pytorch.org/whl/cu121"
-priority = "explicit"
+priority = "explicit"  # ← これに戻す
